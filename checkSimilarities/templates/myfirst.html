@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Check Similarity</title>
+</head>
+<body>
+
+    <h1 title="I'm a tooltip" style="color:blue;">Check Similarity</h1>
+
+    <!--Simple Form-->
+    <h2>Add a new pair</h2>
+    <form action="upload/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        Input text:<br>
+        <input type="text" name="text" placeholder="Description of the photo">
+        <br><br>
+        <label for="image">Select an image:</label><br>
+        <input type="file" name="image" accept="image/*">
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <!--See Image Uploaded-->
+    <h2 class="my-4">Pair</h2>
+    <div class="row">
+        {% if file_url %}
+        <div>
+        <p>{{ text }}</p>
+        <img src="{{ file_url }}" class="img-fluid">
+        <br>
+        {% else %}
+        <p>No pairs added.</p>
+        {% endif %}
+    </div>
+
+    <!--Show Similarities-->
+    <h2>Similarity Scores</h2>
+    <div>
+        <p>Cosine score: {{ cos }}</p>
+        <p>Euclidean distance: {{ euc }}</p>
+        <p>Manhattan distance: {{ man }}</p>
+    </div>
+
+</body>
+</html>
